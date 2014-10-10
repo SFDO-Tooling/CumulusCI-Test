@@ -54,6 +54,16 @@
     <enableReports>false</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Sample_Field__c</fullName>
+        <externalId>false</externalId>
+        <label>Sample Field</label>
+        <length>200</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <label>SampleObject</label>
     <nameField>
         <label>Custom Object Label Name</label>
