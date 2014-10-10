@@ -6,6 +6,7 @@ public with sharing class SampleClass_TEST {
     	Contact contact = new Contact(LastName = 'Testerson');
     	insert contact;
     	myClass.fillInFirstName(new Contact[]{contact});
+    	update contact;
     	contact = [select FirstName from Contact where Id = :contact.Id];
     	System.assertEquals('Test', contact.FirstName);
     }

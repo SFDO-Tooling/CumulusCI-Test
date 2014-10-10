@@ -9,6 +9,5 @@ public with sharing class SampleClass {
     			contactsToUpdate.add(contact);
     		}
     	}
-    	update contactsToUpdate;
     }
 }
