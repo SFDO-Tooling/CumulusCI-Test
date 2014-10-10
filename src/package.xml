@@ -4,6 +4,7 @@
     <members>SampleClass</members>
     <members>SampleClass_TEST</members>
     <members>SamplePage_CTRL</members>
+    <members>SamplePage_CTRL_TEST</members>
     <name>ApexClass</name>
   </types>
   <types>
