@@ -1,5 +1,4 @@
-trigger SampleTrigger on Contact (after delete, after insert, after undelete, 
-after update) {
+trigger SampleTrigger on Contact (before insert, before update) {
 
     SampleClass myClass = new SampleClass();
     myClass.fillInFirstName(Trigger.new);
