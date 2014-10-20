@@ -43,5 +43,9 @@
     <members>SampleObject__c.All</members>
     <name>ListView</name>
   </types>
+  <types>
+    <members>SampleObject__c.Just_Testing</members>
+    <name>WebLink</name>
+  </types>
   <version>31.0</version>
 </Package>
