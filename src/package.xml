@@ -24,10 +24,12 @@
     <name>CustomApplication</name>
   </types>
   <types>
+    <members>Child_Sample_Object__c.Parent__c</members>
     <members>SampleObject__c.Sample_Field__c</members>
     <name>CustomField</name>
   </types>
   <types>
+    <members>Child_Sample_Object__c</members>
     <members>SampleObject__c</members>
     <name>CustomObject</name>
   </types>
