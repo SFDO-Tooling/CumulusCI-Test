@@ -35,5 +35,9 @@
     <members>SampleObject__c-SampleObject Layout</members>
     <name>Layout</name>
   </types>
+  <types>
+    <members>SampleObject__c.All</members>
+    <name>ListView</name>
+  </types>
   <version>31.0</version>
 </Package>
