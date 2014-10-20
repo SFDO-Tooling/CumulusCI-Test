@@ -32,6 +32,10 @@
     <name>CustomObject</name>
   </types>
   <types>
+    <members>SampleObject__c</members>
+    <name>CustomTab</name>
+  </types>
+  <types>
     <members>SampleObject__c-SampleObject Layout</members>
     <name>Layout</name>
   </types>
