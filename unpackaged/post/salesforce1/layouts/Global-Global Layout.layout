@@ -5,28 +5,13 @@
             <quickActionName>FeedItem.TextPost</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
-            <quickActionName>%%%NAMESPACE%%%NewContact</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
             <quickActionName>New_Organization</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
             <quickActionName>New_Household_Account</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
-            <quickActionName>%%%NAMESPACE%%%New_Recurring_Donation</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
-            <quickActionName>%%%NAMESPACE%%%New_Campaign</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
-            <quickActionName>%%%NAMESPACE%%%NewTask</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
             <quickActionName>FeedItem.ContentPost</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
-            <quickActionName>%%%NAMESPACE%%%LogACall</quickActionName>
         </quickActionListItems>
     </quickActionList>
     <showEmailCheckbox>false</showEmailCheckbox>
