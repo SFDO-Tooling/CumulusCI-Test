@@ -46,7 +46,6 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>This is a generic template for Custom Object.  With this template, you may adjust the default elements and values and add new elements and values.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -55,36 +54,23 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>Sample_Field__c</fullName>
+        <fullName>Parent__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
-        <label>Sample Field</label>
-        <length>200</length>
+        <label>Parent</label>
+        <referenceTo>SampleObject__c</referenceTo>
+        <relationshipLabel>Children Sample Objects</relationshipLabel>
+        <relationshipName>Children_Sample_Objects</relationshipName>
         <required>false</required>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Lookup</type>
     </fields>
-    <label>SampleObject</label>
-    <listViews>
-        <fullName>All</fullName>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
+    <label>Child Sample Object</label>
     <nameField>
-        <label>Custom Object Label Name</label>
+        <label>Child Sample Object Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>SampleObjects</pluralLabel>
+    <pluralLabel>Children Sample Objects</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
-    <webLinks>
-        <fullName>Just_Testing</fullName>
-        <availability>online</availability>
-        <displayType>button</displayType>
-        <linkType>javascript</linkType>
-        <masterLabel>Just Testing</masterLabel>
-        <openType>onClickJavaScript</openType>
-        <protected>false</protected>
-        <url>alert(&apos;Just Testing!&apos;);</url>
-    </webLinks>
 </CustomObject>
