@@ -4,5 +4,10 @@
     	<members>Account</members>
         <name>CustomObject</name>
     </types>
+    <types>
+    	<members>Account.HH_Account</members>
+    	<members>Account.Organization</members>
+        <name>RecordType</name>
+    </types>
     <version>30.0</version>
 </Package>
