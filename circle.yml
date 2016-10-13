@@ -23,5 +23,6 @@ test:
   override:
     - 'cumulusci ci deploy --debug-logdir apex_tests_db'
   post:
+    - 'cp test_results.json $CIRCLE_ARTIFACTS'
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
-    - 'mv test_results_junit.xml $CIRCLE_TEST_REPORTS/junit/'
+    - 'cp test_results_junit.xml $CIRCLE_TEST_REPORTS/junit/'
