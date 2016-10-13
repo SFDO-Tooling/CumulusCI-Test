@@ -30,7 +30,7 @@ deployment:
   beta_upload:
     branch: master
     commands:
-      - 'cumulusci release upload_beta $CIRCLE_SHA1 --create-release --selenium-url "http://127.0.0.1:4444/wd/hub"'
+      - 'cumulusci release upload_beta $CIRCLE_SHA1 --create-release'
       - 'cumulusci github master_to_feature --commit $CIRCLE_SHA1'
   beta_test:
     tag: /beta\/.*/
