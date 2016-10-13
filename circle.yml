@@ -4,7 +4,7 @@ machine:
   python:
     version: 2.7.12
   post:
-    - '[[ -d /opt/CumulusCI ]] && git clone https://github.com/SalesforceFoundation/CumulusCI /opt/CumulusCI || `cd /opt/CumulusCI; git pull`'
+    - '[[ -d /opt/CumulusCI ]] && `cd /opt/CumulusCI; git pull`' || git clone https://github.com/SalesforceFoundation/CumulusCI /opt/CumulusCI 
   environment:
     APEXTESTSDB_BASE_URL: 'https://apextestsdb.herokuapp.com'
     APEXTESTSDB_USER_ID: 1
