@@ -1,6 +1,4 @@
 machine:
-  timezone:
-    America/Los_Angeles
   python:
     version: 2.7.12
   environment:
