@@ -22,3 +22,19 @@ dependencies:
 test:
   override:
     - 'cumulusci ci deploy --debug-logdir apex_tests_db'
+  post:
+    - 'cp test_results.json $CIRCLE_ARTIFACTS'
+    - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
+    - 'cp test_results_junit.xml $CIRCLE_TEST_REPORTS/junit/'
+deployment:
+  beta_upload:
+    branch: master
+    commands:
+      - 'cumulusci release upload_beta $CIRCLE_SHA1 --create-release --selenium-url "http://127.0.0.1:4444/wd/hub"'
+      - 'cumulusci github master_to_feature --commit $CIRCLE_SHA1'
+  beta_test:
+    tag: /beta\/.*/
+    owner: SalesforceFoundation
+    commands:
+      - 'cumulusci ci beta_deploy --run-tests $CIRCLE_TAG $CIRCLE_SHA1'
+      - 'export BETA_ORG_SUFFIX=BETA_BROWSERTESTS; cumulusci ci beta_deploy $CIRCLE_TAG $CIRCLE_SHA1'
