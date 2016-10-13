@@ -3,12 +3,10 @@ machine:
     America/Los_Angeles
   python:
     version: 2.7.12
-  post:
-    - 'sudo [[ -d /opt/CumulusCI ]] && `cd /opt/CumulusCI; git pull` || git clone https://github.com/SalesforceFoundation/CumulusCI /opt/CumulusCI'
   environment:
     APEXTESTSDB_BASE_URL: 'https://apextestsdb.herokuapp.com'
     APEXTESTSDB_USER_ID: 1
-    CUMULUSCI_PATH: /opt/CumulusCI
+    CUMULUSCI_PATH: ../CumulusCI
     GITHUB_USERNAME: mrbelvedere
     GITHUB_ORG_NAME: SalesforceFoundation
     GITHUB_REPO_NAME: 'CumulusCI-Test'
@@ -21,7 +19,8 @@ machine:
     SF_USERNAME_PACKAGING: 'mrbelvedere@cumulusci-test.packaging'
 dependencies:
   override:
-    - 'pip install --upgrade -r /opt/CumulusCI/requirements.txt'
+    - 'git clone https://github.com/SalesforceFoundation/CumulusCI $CUMULUSCI_PATH'
+    - 'pip install --upgrade -r $CUMULUSCI_PATH/requirements.txt'
 test:
   override:
     - 'cumulusci ci deploy --debug-logdir apex_tests_db'
