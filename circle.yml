@@ -11,7 +11,6 @@ machine:
     INSTANCE_URL: 'https://na17.salesforce.com'
     MRBELVEDERE_BASE_URL: 'https://mrbelvedere.salesforcefoundation.org/mpinstaller'
     PREFIX_RELEASE: rel/
-    SELENIUM_BROWSER: Chrome
     SF_USERNAME_BETA: 'mrbelvedere@cumulusci-test.beta'
     SF_USERNAME_BETA_BROWSERTEST: 'mrbelvedere@cumulusci-test.beta.browsertest'
     SF_USERNAME_FEATURE: 'mrbelvedere@cumulusci-test.feature'
@@ -32,7 +31,7 @@ deployment:
   beta_upload:
     branch: master
     commands:
-      - 'cumulusci release upload_beta $CIRCLE_SHA1 --create-release'
+      - 'cumulusci release upload_beta --create-release --browser Chrome $CIRCLE_SHA1'
       - 'cumulusci github master_to_feature --commit $CIRCLE_SHA1'
   beta_test:
     tag: /beta\/.*/
