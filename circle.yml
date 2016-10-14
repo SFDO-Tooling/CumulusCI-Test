@@ -5,15 +5,15 @@ machine:
     APEXTESTSDB_BASE_URL: 'https://apextestsdb.herokuapp.com'
     APEXTESTSDB_USER_ID: 1
     CUMULUSCI_PATH: ../CumulusCI
-    GITHUB_USERNAME: mrbelvedere
     GITHUB_ORG_NAME: SalesforceFoundation
     GITHUB_REPO_NAME: 'CumulusCI-Test'
-    PREFIX_RELEASE: rel/
-    SF_USERNAME_FEATURE: 'mrbelvedere@cumulusci-test.feature'
+    GITHUB_USERNAME: mrbelvedere
     INSTANCE_URL: 'https://na17.salesforce.com'
     MRBELVEDERE_BASE_URL: 'https://mrbelvedere.salesforcefoundation.org/mpinstaller'
+    PREFIX_RELEASE: rel/
     SF_USERNAME_BETA: 'mrbelvedere@cumulusci-test.beta'
     SF_USERNAME_BETA_BROWSERTEST: 'mrbelvedere@cumulusci-test.beta.browsertest'
+    SF_USERNAME_FEATURE: 'mrbelvedere@cumulusci-test.feature'
     SF_USERNAME_PACKAGING: 'mrbelvedere@cumulusci-test.packaging'
 dependencies:
   override:
@@ -22,15 +22,16 @@ dependencies:
 test:
   override:
     - 'cumulusci ci deploy --debug-logdir apex_tests_db'
-  post:
     - 'cp test_results.json $CIRCLE_ARTIFACTS'
+    - 'cumulusci ci apextestsdb_upload'
+  post:
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results_junit.xml $CIRCLE_TEST_REPORTS/junit/'
 deployment:
   beta_upload:
     branch: master
     commands:
-      - 'cumulusci release upload_beta $CIRCLE_SHA1 --create-release --selenium-url "http://127.0.0.1:4444/wd/hub"'
+      - 'cumulusci release upload_beta --create-release --browser Chrome $CIRCLE_SHA1'
       - 'cumulusci github master_to_feature --commit $CIRCLE_SHA1'
   beta_test:
     tag: /beta\/.*/
