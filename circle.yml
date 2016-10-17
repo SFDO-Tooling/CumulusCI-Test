@@ -21,11 +21,11 @@ dependencies:
     - 'cd $CUMULUSCI_PATH; pip install --upgrade -r requirements.txt'
   post:
     - 'cumulusci ci deploy --no-test'
-    - '[[$CIRCLE_BRANCH == "master"]] && cumulusci release upload_beta --create-release --browser Chrome $CIRCLE_SHA1'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci release upload_beta --create-release --browser Chrome $CIRCLE_SHA1; git fetch --all'
 test:
   override:
-    - '[[$CIRCLE_BRANCH == "master"]] && cumulusci ci beta_deploy --run-tests $CIRCLE_TAG $CIRCLE_SHA1'
-    - '[[$CIRCLE_BRANCH != "master"]] && cumulusci dev run_tests --debug-logdir apex_tests_db --json-output test_results.json'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci ci beta_deploy --run-tests "`git describe --tags --abbrev=0`" $CIRCLE_SHA1'
+    - '[[ $CIRCLE_BRANCH != "master" ]] && cumulusci dev run_tests --debug-logdir apex_tests_db --json-output test_results.json'
   post:
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results_junit.xml $CIRCLE_TEST_REPORTS/junit/'
