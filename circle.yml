@@ -19,23 +19,20 @@ dependencies:
   override:
     - 'git clone https://github.com/SalesforceFoundation/CumulusCI $CUMULUSCI_PATH'
     - 'cd $CUMULUSCI_PATH; pip install --upgrade -r requirements.txt'
+  post:
+    - 'cumulusci ci deploy --no-test'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci release upload_beta --create-release --browser Chrome $CIRCLE_SHA1; git fetch --all || echo "Skipping upload_beta step for branch $CIRCLE_BRANCH"'
 test:
   override:
-    - 'cumulusci ci deploy --debug-logdir apex_tests_db'
-    - 'cp test_results.json $CIRCLE_ARTIFACTS'
-    - 'cumulusci ci apextestsdb_upload'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci ci beta_deploy --run-tests "`git describe --tags --abbrev=0`" $CIRCLE_SHA1 || echo "Skipping beta_deploy step for branch $CIRCLE_BRANCH"'
+    - '[[ $CIRCLE_BRANCH != "master" ]] && cumulusci dev run_tests --debug-logdir apex_tests_db --json-output test_results.json || echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH"'
   post:
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results_junit.xml $CIRCLE_TEST_REPORTS/junit/'
+    - 'cp test_results.json $CIRCLE_ARTIFACTS'
+    - 'cumulusci ci apextestsdb_upload'
 deployment:
-  beta_upload:
+  master_to_feature:
     branch: master
     commands:
-      - 'cumulusci release upload_beta --create-release --browser Chrome $CIRCLE_SHA1'
       - 'cumulusci github master_to_feature --commit $CIRCLE_SHA1'
-  beta_test:
-    tag: /beta\/.*/
-    owner: SalesforceFoundation
-    commands:
-      - 'cumulusci ci beta_deploy --run-tests $CIRCLE_TAG $CIRCLE_SHA1'
-      - 'export BETA_ORG_SUFFIX=BETA_BROWSERTESTS; cumulusci ci beta_deploy $CIRCLE_TAG $CIRCLE_SHA1'
