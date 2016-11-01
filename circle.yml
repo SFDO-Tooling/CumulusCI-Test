@@ -12,8 +12,7 @@ dependencies:
   override:
     #- 'pip install --upgrade cumulusci'
     - 'git clone git@github.com:SalesforceFoundation/CumulusCI'
-    - 'git checkout feature/2.0'
-    - 'pip install -r requirements_dev.txt'
+    - 'cd CumulusCI; git checkout feature/2.0; pip install -r requirements_dev.txt'
   post:
     - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org packaging ci_master || cumulusci2 flow run --org feature ci_feature'
     - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org packaging release_beta || echo "Skipping upload_beta step for branch $CIRCLE_BRANCH"'
