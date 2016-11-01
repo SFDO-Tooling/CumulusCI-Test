@@ -18,8 +18,8 @@ dependencies:
     - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org packaging release_beta || echo "Skipping upload_beta step for branch $CIRCLE_BRANCH"'
 test:
   override:
-    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run ci_beta -o version FIXME --run-tests || echo "Skipping beta_deploy step for branch $CIRCLE_BRANCH"'
-    - '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cumulusci2 dev run_tests_debug --debug-logdir apex_tests_db --json-output test_results.json'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org beta -o version FIXME ci_beta || echo "Skipping beta_deploy step for branch $CIRCLE_BRANCH"'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cumulusci2 task run --org feature run_tests_debug'
   post:
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results.xml $CIRCLE_TEST_REPORTS/junit/'
