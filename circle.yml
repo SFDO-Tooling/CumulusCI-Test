@@ -24,7 +24,7 @@ test:
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results.xml $CIRCLE_TEST_REPORTS/junit/'
     - '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cp test_results.json $CIRCLE_ARTIFACTS'
-    - '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cumulusci2 task run apextestsdb_upload'
+    #- '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cumulusci2 task run apextestsdb_upload'
 deployment:
   master_to_feature:
     branch: master
