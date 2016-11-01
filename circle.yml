@@ -1,38 +1,32 @@
+general:
+  branches:
+    ignore:
+      - /feature\/.*/
 machine:
   python:
     version: 2.7.12
   environment:
-    APEXTESTSDB_BASE_URL: 'https://apextestsdb.herokuapp.com'
-    APEXTESTSDB_USER_ID: 1
-    CUMULUSCI_PATH: ../CumulusCI
-    GITHUB_ORG_NAME: SalesforceFoundation
-    GITHUB_REPO_NAME: 'CumulusCI-Test'
-    GITHUB_USERNAME: mrbelvedere
-    INSTANCE_URL: 'https://na17.salesforce.com'
-    MRBELVEDERE_BASE_URL: 'https://mrbelvedere.salesforcefoundation.org/mpinstaller'
-    PREFIX_RELEASE: rel/
-    SF_USERNAME_BETA: 'mrbelvedere@cumulusci-test.beta'
-    SF_USERNAME_BETA_BROWSERTEST: 'mrbelvedere@cumulusci-test.beta.browsertest'
-    SF_USERNAME_FEATURE: 'mrbelvedere@cumulusci-test.feature'
-    SF_USERNAME_PACKAGING: 'mrbelvedere@cumulusci-test.packaging'
+    CUMULUSCI_KEY: FIXME
+    CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
 dependencies:
   override:
-    - 'git clone https://github.com/SalesforceFoundation/CumulusCI $CUMULUSCI_PATH'
-    - 'cd $CUMULUSCI_PATH; pip install --upgrade -r requirements.txt'
+    #- 'pip install --upgrade cumulusci'
+    - 'git clone git@github.com:SalesforceFoundation/CumulusCI'
+    - 'cd CumulusCI; git checkout feature/2.0; pip install -r requirements_dev.txt'
   post:
-    - 'cumulusci ci deploy --no-test'
-    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci release upload_beta --create-release --browser Chrome $CIRCLE_SHA1; git fetch --all || echo "Skipping upload_beta step for branch $CIRCLE_BRANCH"'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org packaging ci_master || cumulusci2 flow run --org feature ci_feature'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org packaging release_beta || echo "Skipping upload_beta step for branch $CIRCLE_BRANCH"'
 test:
   override:
-    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci ci beta_deploy --run-tests "`git describe --tags --abbrev=0`" $CIRCLE_SHA1 || echo "Skipping beta_deploy step for branch $CIRCLE_BRANCH"'
-    - '[[ $CIRCLE_BRANCH != "master" ]] && cumulusci dev run_tests --debug-logdir apex_tests_db --json-output test_results.json || echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH"'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org beta -o version FIXME ci_beta || echo "Skipping beta_deploy step for branch $CIRCLE_BRANCH"'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cumulusci2 task run --org feature run_tests_debug'
   post:
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
-    - 'cp test_results_junit.xml $CIRCLE_TEST_REPORTS/junit/'
-    - 'cp test_results.json $CIRCLE_ARTIFACTS'
-    - 'cumulusci ci apextestsdb_upload'
+    - 'cp test_results.xml $CIRCLE_TEST_REPORTS/junit/'
+    - '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cp test_results.json $CIRCLE_ARTIFACTS'
+    #- '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cumulusci2 task run apextestsdb_upload'
 deployment:
   master_to_feature:
     branch: master
     commands:
-      - 'cumulusci github master_to_feature --commit $CIRCLE_SHA1'
+      - 'cumulusci2 task run github_master_to_feature'
