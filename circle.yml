@@ -14,17 +14,16 @@ dependencies:
     - 'git clone git@github.com:SalesforceFoundation/CumulusCI'
     - 'cd CumulusCI; git checkout feature/2.0; pip install -r requirements_dev.txt'
   post:
-    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org packaging ci_master || cumulusci2 flow run --org feature ci_feature'
-    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org packaging release_beta || echo "Skipping upload_beta step for branch $CIRCLE_BRANCH"'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run --org packaging ci_master; else cumulusci2 flow run --org feature ci_feature; fi'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run --org packaging release_beta; fi'
 test:
   override:
-    - '[[ $CIRCLE_BRANCH == "master" ]] && cumulusci2 flow run --org beta -o version FIXME ci_beta || echo "Skipping beta_deploy step for branch $CIRCLE_BRANCH"'
-    - '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cumulusci2 task run --org feature run_tests_debug'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run --org beta ci_beta; else cumulusci2 task run --org feature run_tests_debug; fi'
   post:
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results.xml $CIRCLE_TEST_REPORTS/junit/'
-    - '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cp test_results.json $CIRCLE_ARTIFACTS'
-    #- '[[ $CIRCLE_BRANCH == "master" ]] && echo "Skipping unmanaged run_tests step for branch $CIRCLE_BRANCH" || cumulusci2 task run apextestsdb_upload'
+    - 'if [[ $CIRCLE_BRANCH != "master" ]]; then cp test_results.json $CIRCLE_ARTIFACTS; fi'
+    #- 'if [[ $CIRCLE_BRANCH != "master" ]]; then cumulusci2 task run apextestsdb_upload; fi'
 deployment:
   master_to_feature:
     branch: master
