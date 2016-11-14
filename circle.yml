@@ -26,7 +26,7 @@ test:
   override:
     - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run --org beta ci_beta; else cumulusci2 task run --org feature run_tests_debug; fi'
   post:
-    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 org scratch_delete beta; else cumulusci2 org scratch_delete feature; fi'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 org scratch_delete beta --force; else cumulusci2 org scratch_delete feature --force; fi'
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results.xml $CIRCLE_TEST_REPORTS/junit/'
     - 'if [[ $CIRCLE_BRANCH != "master" ]]; then cp test_results.json $CIRCLE_ARTIFACTS; fi'
