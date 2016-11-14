@@ -21,12 +21,11 @@ dependencies:
     - 'cd CumulusCI; git checkout feature/2.0; pip install -r requirements_dev.txt'
 test:
   pre:
-    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run --org packaging ci_master; else cumulusci2 flow run --org feature ci_feature; fi'
-    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run --org packaging release_beta; fi'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run ci_master --org packaging; fi'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run release_beta --org packaging; fi'
   override:
-    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run --org beta ci_beta; else cumulusci2 task run --org feature run_tests_debug; fi'
+    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 flow run ci_beta --org beta --delete-org; else cumulusci2 flow run ci_feature --org feature --delete-org; fi'
   post:
-    - 'if [[ $CIRCLE_BRANCH == "master" ]]; then cumulusci2 org scratch_delete beta --force; else cumulusci2 org scratch_delete feature --force; fi'
     - 'mkdir -p $CIRCLE_TEST_REPORTS/junit/'
     - 'cp test_results.xml $CIRCLE_TEST_REPORTS/junit/'
     - 'if [[ $CIRCLE_BRANCH != "master" ]]; then cp test_results.json $CIRCLE_ARTIFACTS; fi'
