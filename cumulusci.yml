@@ -4,6 +4,8 @@ project:
         name: CumulusCI Test
         namespace: ccitest
         api_version: 33.0
+    git:
+        repo_url: https://github.com/SalesforceFoundation/CumulusCI-Test
 
 tasks:
     list_contacts:
