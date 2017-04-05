@@ -11,6 +11,9 @@ tasks:
     list_contacts:
         description: List some contacts
         class_path: tasks.salesforce.ListContacts
+    test_task:
+        description: An example project-level task that does nothing
+        class_path: tasks.salesforce.TestTask
 
 flows:
     ci_test_concurrency:
