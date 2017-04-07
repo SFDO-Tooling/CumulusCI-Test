@@ -8,9 +8,9 @@ project:
         repo_url: https://github.com/SalesforceFoundation/CumulusCI-Test
 
 tasks:
-    test_task:
+    example_task:
         description: An example project-level task that does nothing
-        class_path: tasks.salesforce.TestTask
+        class_path: tasks.example.ExampleTask
 
 flows:
     ci_test_concurrency:
