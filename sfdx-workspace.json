@@ -5,7 +5,7 @@
       "Default": true
     }
   ],
-  "Namespace": "",
+  "Namespace": "ccitest",
   "SfdcLoginUrl": "https://gs0.salesforce.com",
   "SourceApiVersion": "33.0"
 }
