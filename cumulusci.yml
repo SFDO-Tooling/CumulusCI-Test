@@ -6,6 +6,9 @@ project:
         api_version: 33.0
     git:
         repo_url: https://github.com/SalesforceFoundation/CumulusCI-Test
+    dependencies:
+        - namespace: pub
+          version: 1.5
 
 tasks:
     example_task:
@@ -13,6 +16,12 @@ tasks:
         class_path: tasks.example.ExampleTask
 
 flows:
+    ci_feature:
+        tasks:
+            # Set run_tests_debug to query for test classes with the namespace
+            8:
+                options:
+                    managed: True
     ci_test_concurrency:
         description: A flow that does nothing but sleep for a minute.  Used to test concurrency on CI systems
         tasks:
