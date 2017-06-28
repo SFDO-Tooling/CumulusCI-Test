@@ -1,11 +1,10 @@
 {
-  "Company": "CumulusCI-Test Release Test Org",
-  "Country": "US",
-  "LastName": "Belvedere",
-  "Email": "mrbelvedere@salesforce.org",
-  "Edition": "Developer",
-  "OrgPreferences" : {
-    "S1DesktopEnabled" : true,
-    "ChatterEnabled" : true
+  "edition": "Developer", 
+  "orgName": "CumulusCI-Test Release Test Org", 
+  "orgPreferences": {
+    "enabled": [
+      "ChatterEnabled", 
+      "S1DesktopEnabled"
+    ]
   }
 }

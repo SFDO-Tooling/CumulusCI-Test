@@ -1,0 +1,11 @@
+{
+  "packageDirectories": [
+    {
+      "path": "src",
+      "default": true
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://gs0.salesforce.com",
+  "sourceApiVersion": "33.0"
+}
