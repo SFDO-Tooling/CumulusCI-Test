@@ -1,1 +1,3 @@
 *.pyc
+/browser_tests
+/test_results.xml
