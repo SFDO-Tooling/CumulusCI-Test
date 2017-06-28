@@ -5,7 +5,7 @@
       "default": true
     }
   ],
-  "namespace": "ccitest",
+  "namespace": "",
   "sfdcLoginUrl": "https://gs0.salesforce.com",
   "sourceApiVersion": "33.0"
 }
