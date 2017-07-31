@@ -9,6 +9,9 @@ project:
     dependencies:
         - namespace: pub
           version: 1.5
+    apexdoc:
+        branch: gh-pages
+        repo_dir: ApexDocumentation
 
 tasks:
     example_task:
