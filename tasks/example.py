@@ -5,3 +5,5 @@ class ExampleTask(BaseTask):
 
     def _run_task(self):
         self.logger.info('Called _run_task')
+
+# foo
