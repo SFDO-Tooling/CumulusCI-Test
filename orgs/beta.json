@@ -1,6 +1,7 @@
 {
   "edition": "Developer", 
   "orgName": "CumulusCI-Test Beta Test Org", 
+  "instance": "CS46",
   "orgPreferences": {
     "enabled": [
       "ChatterEnabled", 

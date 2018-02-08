@@ -1,5 +1,6 @@
 {
   "edition": "Developer", 
+   "instance": "CS46",
   "orgName": "CumulusCI-Test Feature Test Org", 
   "orgPreferences": {
     "enabled": [
