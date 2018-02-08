@@ -11,5 +11,7 @@ public with sharing class SampleClass_TEST {
 		Test.stopTest();
     	contact = [select FirstName from Contact where Id = :contact.Id];
     	System.assertEquals('Test', contact.FirstName);
+	    delete contact;
     }
+
 }
