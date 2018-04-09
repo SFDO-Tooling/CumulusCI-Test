@@ -1,6 +1,5 @@
 {
-  "edition": "Developer", 
-  "instance": "CS46",
+  "edition": "Developer",
   "orgName": "CumulusCI-Test Dev Workspace", 
   "orgPreferences": {
     "enabled": [
