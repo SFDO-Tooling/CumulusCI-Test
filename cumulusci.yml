@@ -26,3 +26,7 @@ flows:
                 task: util_sleep
                 options:
                     seconds: 60
+    ci_feature:
+        tasks:
+            99:
+                task: robot
