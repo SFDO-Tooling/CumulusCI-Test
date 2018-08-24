@@ -36,7 +36,7 @@ Validate Contact
     [Arguments]          ${contact_id}  ${first_name}  ${last_name}
     # Validate via UI
     Go To Record Home    Contact  ${contact_id}
-    Page Should Contain  ${first_name} ${last_name}
+    Page Should Contain  ${first_name} - ${last_name}
     # Validate via API
     &{contact} =     Salesforce Get  Contact  ${contact_id}
     Should Be Equal  ${first_name}  &{contact}[FirstName]
