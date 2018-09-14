@@ -18,6 +18,17 @@ tasks:
         description: An example project-level task that does nothing
         class_path: tasks.example.ExampleTask
 
+    update_admin_profile:
+        options:
+            record_types:
+                - record_type: Account.HH_Account
+                - record_type: Account.Organization
+                  default: true
+                  person_account_default: true
+                - record_type: Opportunity.NPSP_Default
+                  default: true
+                
+
 flows:
     ci_test_concurrency:
         description: A flow that does nothing but sleep for a minute.  Used to test concurrency on CI systems
