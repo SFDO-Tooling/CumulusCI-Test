@@ -14,6 +14,10 @@ project:
         repo_dir: ApexDocumentation
 
 tasks:
+    preflight:
+        description: returns statuc preflight result
+        class_path: tasks.example.StaticPreflightTask
+
     example_task:
         description: An example project-level task that does nothing
         class_path: tasks.example.ExampleTask
@@ -37,3 +41,26 @@ flows:
                 task: util_sleep
                 options:
                     seconds: 60
+    static_preflight:
+        description: A preflight flow that returns a static value. for Install prod...
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: update_dependencies
+            2:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            3:
+                task: preflight
+                options:
+                    task_name: install_managed
+            4:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            5:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
