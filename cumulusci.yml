@@ -64,3 +64,31 @@ flows:
                 task: preflight
                 options:
                     task_name: update_admin_profile
+
+    failing_preflight:
+        descriptions: A preflight flow that fails
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: update_dependencies
+            2:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            3:
+                task: preflight
+                options:
+                    task_name: install_managed
+                    status_code: error
+                    msg: You cannot install CumulusCI-Test into the CumulusCI-Test Packaging org, you goof!
+            4:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            5:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+
+
