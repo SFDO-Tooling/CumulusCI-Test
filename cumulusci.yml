@@ -18,6 +18,10 @@ tasks:
         description: returns static preflight result
         class_path: tasks.example.StaticPreflightTask
 
+    preflight_error:
+        description: blows up with a NotImplementedError
+        class_path: cumulusci.core.tasks.BaseTask
+
     example_task:
         description: An example project-level task that does nothing
         class_path: tasks.example.ExampleTask
@@ -120,3 +124,11 @@ flows:
                 options:
                     task_name: update_admin_profile
                     status_code: skip
+
+    error_preflight:
+        descriptions: A preflight flow that has a top-level error.
+        steps:
+            1:
+                task: preflight_error
+                options:
+                    task_name: not_implemented
