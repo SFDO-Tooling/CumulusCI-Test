@@ -35,7 +35,7 @@ tasks:
                   person_account_default: true
                 - record_type: Opportunity.NPSP_Default
                   default: true
-                
+
 
 flows:
     ci_test_concurrency:
@@ -124,6 +124,26 @@ flows:
                 options:
                     task_name: update_admin_profile
                     status_code: skip
+
+    warn_preflight:
+        descriptions: A preflight flow that has warnings.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: update_dependencies
+            2:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+                    status_code: warn
+                    msg: This warning is an <script>evil()</script> example.
+            3:
+                task: preflight
+                options:
+                    task_name: install_managed
+                    status_code: warn
+                    msg: This warning is a <a href="https://www.salesforce.org/">good</a> example.
 
     error_preflight:
         descriptions: A preflight flow that has a top-level error.
