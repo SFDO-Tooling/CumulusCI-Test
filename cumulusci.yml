@@ -53,14 +53,17 @@ flows:
                 task: util_sleep
                 options:
                     seconds: 5
+                    task_name: quick_task
             2:
                 task: util_sleep
                 options:
                     seconds: 10
+                    task_name: slow_task
             3:
                 task: util_sleep
                 options:
                     seconds: 7
+                    task_name: medium_task
 
     static_preflight:
         description: A preflight flow that returns a static value. for Install prod...
