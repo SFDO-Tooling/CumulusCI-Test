@@ -65,6 +65,58 @@ flows:
                     seconds: 7
                     task_name: medium_task
 
+    slow_steps_preflight_good:
+        description: A passing preflight for the slow_steps_flow.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: quick_task
+            2:
+                task: preflight
+                options:
+                    task_name: slow_task
+            3:
+                task: preflight
+                options:
+                    task_name: medium_task
+
+    slow_steps_preflight_warn:
+        description: A warning preflight for the slow_steps_flow.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: quick_task
+            2:
+                task: preflight
+                options:
+                    task_name: slow_task
+                    status_code: warn
+                    msg: This might cause headache and eyestrain.
+            3:
+                task: preflight
+                options:
+                    task_name: medium_task
+
+    slow_steps_preflight_bad:
+        description: A failing preflight for the slow_steps_flow.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: quick_task
+            2:
+                task: preflight
+                options:
+                    task_name: slow_task
+                    status_code: error
+                    msg: You never expected this to work, did you?
+            3:
+                task: preflight
+                options:
+                    task_name: medium_task
+
     static_preflight:
         description: A preflight flow that returns a static value. for Install prod...
         steps:
