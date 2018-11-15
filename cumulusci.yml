@@ -14,6 +14,18 @@ project:
         repo_dir: ApexDocumentation
 
 tasks:
+    named_sleep:
+        description: sleeps, and has a name
+        class_path: tasks.example.StaticSleep
+
+    preflight:
+        description: returns static preflight result
+        class_path: tasks.example.StaticPreflightTask
+
+    preflight_error:
+        description: blows up with a NotImplementedError
+        class_path: cumulusci.core.tasks.BaseTask
+
     example_task:
         description: An example project-level task that does nothing
         class_path: tasks.example.ExampleTask
@@ -27,13 +39,311 @@ tasks:
                   person_account_default: true
                 - record_type: Opportunity.NPSP_Default
                   default: true
-                
+
 
 flows:
     ci_test_concurrency:
         description: A flow that does nothing but sleep for a minute.  Used to test concurrency on CI systems
-        tasks:
+        steps:
             1:
                 task: util_sleep
                 options:
                     seconds: 60
+
+    slow_steps_flow:
+        description: A flow that slowly goes step by step.
+        steps:
+            1:
+                task: named_sleep
+                options:
+                    seconds: 5
+                    task_name: quick_task
+            2:
+                task: named_sleep
+                options:
+                    seconds: 10
+                    task_name: slow_task
+            3:
+                task: named_sleep
+                options:
+                    seconds: 7
+                    task_name: medium_task
+            4:
+                task: named_sleep
+                options:
+                    seconds: 1
+                    task_name: relationships
+            5:
+                task: named_sleep
+                options:
+                    seconds: 1
+                    task_name: affiliations
+            6:
+                task: named_sleep
+                options:
+                    seconds: 1
+                    task_name: update_admin_profile
+            7:
+                task: named_sleep
+                options:
+                    seconds: 1
+                    task_name: install_managed
+            8:
+                task: named_sleep
+                options:
+                    seconds: 1
+                    task_name: deploy_pre
+            9:
+                task: named_sleep
+                options:
+                    seconds: 1
+                    task_name: deploy_post
+            10:
+                task: named_sleep
+                options:
+                    seconds: 1
+                    task_name: ordered_step
+
+    slow_steps_preflight_good:
+        description: A passing preflight for the slow_steps_flow.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: quick_task
+            2:
+                task: preflight
+                options:
+                    task_name: slow_task
+            3:
+                task: preflight
+                options:
+                    task_name: medium_task
+            4:
+                task: preflight
+                options:
+                    task_name: relationships
+            5:
+                task: preflight
+                options:
+                    task_name: affiliations
+            6:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+            7:
+                task: preflight
+                options:
+                    task_name: install_managed
+            8:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            9:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            10:
+                task: preflight
+                options:
+                    task_name: ordered_step
+
+    slow_steps_preflight_warn:
+        description: A warning preflight for the slow_steps_flow.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: quick_task
+            2:
+                task: preflight
+                options:
+                    task_name: slow_task
+                    status_code: warn
+                    msg: This might cause headache and eyestrain.
+            3:
+                task: preflight
+                options:
+                    task_name: medium_task
+            4:
+                task: preflight
+                options:
+                    task_name: relationships
+            5:
+                task: preflight
+                options:
+                    task_name: affiliations
+            6:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+            7:
+                task: preflight
+                options:
+                    task_name: install_managed
+            8:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            9:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            10:
+                task: preflight
+                options:
+                    task_name: ordered_step
+
+    slow_steps_preflight_bad:
+        description: A failing preflight for the slow_steps_flow.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: quick_task
+            2:
+                task: preflight
+                options:
+                    task_name: slow_task
+                    status_code: error
+                    msg: You never expected this to work, did you?
+            3:
+                task: preflight
+                options:
+                    task_name: medium_task
+            4:
+                task: preflight
+                options:
+                    task_name: relationships
+            5:
+                task: preflight
+                options:
+                    task_name: affiliations
+            6:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+            7:
+                task: preflight
+                options:
+                    task_name: install_managed
+            8:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            9:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            10:
+                task: preflight
+                options:
+                    task_name: ordered_step
+
+    static_preflight:
+        description: A preflight flow that returns a static value. for Install prod...
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: update_dependencies
+            2:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            3:
+                task: preflight
+                options:
+                    task_name: install_managed
+            4:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            5:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+
+    failing_preflight:
+        descriptions: A preflight flow that fails.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: update_dependencies
+            2:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            3:
+                task: preflight
+                options:
+                    task_name: install_managed
+                    status_code: error
+                    msg: You cannot install CumulusCI-Test into the CumulusCI-Test Packaging org, you goof!
+            4:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            5:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+
+    messy_preflight:
+        descriptions: A preflight flow that has all kinds of issues.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: update_dependencies
+            2:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+                    status_code: warn
+                    msg: You may see an error with the next task.
+            3:
+                task: preflight
+                options:
+                    task_name: install_managed
+                    status_code: error
+                    msg: You cannot install CumulusCI-Test into the CumulusCI-Test Packaging org, you goof!
+            4:
+                task: preflight
+                options:
+                    task_name: deploy_post
+                    status_code: optional
+            5:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+                    status_code: skip
+
+    warn_preflight:
+        descriptions: A preflight flow that has warnings.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: update_dependencies
+            2:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+                    status_code: warn
+                    msg: This warning is an <script>evil()</script> example.
+            3:
+                task: preflight
+                options:
+                    task_name: install_managed
+                    status_code: warn
+                    msg: This warning is a <a href="https://www.salesforce.org/">good</a> example.
+
+    error_preflight:
+        descriptions: A preflight flow that has a top-level error.
+        steps:
+            1:
+                task: preflight_error
+                options:
+                    task_name: not_implemented
