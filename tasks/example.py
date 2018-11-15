@@ -1,4 +1,5 @@
 from cumulusci.core.tasks import BaseTask
+from cumulusci.core.tasks.util import Sleep
 
 
 class ExampleTask(BaseTask):
@@ -24,3 +25,16 @@ class StaticPreflightTask(BaseTask):
         self.return_values["status_code"] = self.options.get("status_code", "ok")
         self.return_values["task_name"] = self.options.get("task_name")
         self.return_values["msg"] = self.options.get("msg", "")
+
+
+class StaticSleep(Sleep):
+    task_options = dict(**Sleep.task_options, **{
+        "task_name": {
+            "description": "Task that this preflight is for",
+            "required": True,
+        },
+    })
+
+    def _run_task(self):
+        super()._run_task()
+        self.return_values["task_name"] = self.options.get("task_name")

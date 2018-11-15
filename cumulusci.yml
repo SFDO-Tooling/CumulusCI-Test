@@ -14,6 +14,10 @@ project:
         repo_dir: ApexDocumentation
 
 tasks:
+    named_sleep:
+        description: sleeps, and has a name
+        class_path: tasks.example.StaticSleep
+
     preflight:
         description: returns static preflight result
         class_path: tasks.example.StaticPreflightTask
@@ -50,52 +54,52 @@ flows:
         description: A flow that slowly goes step by step.
         steps:
             1:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 5
                     task_name: quick_task
             2:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 10
                     task_name: slow_task
             3:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 7
                     task_name: medium_task
             4:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 1
                     task_name: relationships
             5:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 1
                     task_name: affiliations
             6:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 1
                     task_name: update_admin_profile
             7:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 1
                     task_name: install_managed
             8:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 1
                     task_name: deploy_pre
             9:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 1
                     task_name: deploy_post
             10:
-                task: util_sleep
+                task: named_sleep
                 options:
                     seconds: 1
                     task_name: ordered_step
