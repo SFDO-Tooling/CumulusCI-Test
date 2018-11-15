@@ -64,6 +64,41 @@ flows:
                 options:
                     seconds: 7
                     task_name: medium_task
+            4:
+                task: util_sleep
+                options:
+                    seconds: 1
+                    task_name: relationships
+            5:
+                task: util_sleep
+                options:
+                    seconds: 1
+                    task_name: affiliations
+            6:
+                task: util_sleep
+                options:
+                    seconds: 1
+                    task_name: update_admin_profile
+            7:
+                task: util_sleep
+                options:
+                    seconds: 1
+                    task_name: install_managed
+            8:
+                task: util_sleep
+                options:
+                    seconds: 1
+                    task_name: deploy_pre
+            9:
+                task: util_sleep
+                options:
+                    seconds: 1
+                    task_name: deploy_post
+            10:
+                task: util_sleep
+                options:
+                    seconds: 1
+                    task_name: ordered_step
 
     slow_steps_preflight_good:
         description: A passing preflight for the slow_steps_flow.
@@ -80,6 +115,34 @@ flows:
                 task: preflight
                 options:
                     task_name: medium_task
+            4:
+                task: preflight
+                options:
+                    task_name: relationships
+            5:
+                task: preflight
+                options:
+                    task_name: affiliations
+            6:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+            7:
+                task: preflight
+                options:
+                    task_name: install_managed
+            8:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            9:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            10:
+                task: preflight
+                options:
+                    task_name: ordered_step
 
     slow_steps_preflight_warn:
         description: A warning preflight for the slow_steps_flow.
@@ -98,6 +161,34 @@ flows:
                 task: preflight
                 options:
                     task_name: medium_task
+            4:
+                task: preflight
+                options:
+                    task_name: relationships
+            5:
+                task: preflight
+                options:
+                    task_name: affiliations
+            6:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+            7:
+                task: preflight
+                options:
+                    task_name: install_managed
+            8:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            9:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            10:
+                task: preflight
+                options:
+                    task_name: ordered_step
 
     slow_steps_preflight_bad:
         description: A failing preflight for the slow_steps_flow.
@@ -116,6 +207,34 @@ flows:
                 task: preflight
                 options:
                     task_name: medium_task
+            4:
+                task: preflight
+                options:
+                    task_name: relationships
+            5:
+                task: preflight
+                options:
+                    task_name: affiliations
+            6:
+                task: preflight
+                options:
+                    task_name: update_admin_profile
+            7:
+                task: preflight
+                options:
+                    task_name: install_managed
+            8:
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            9:
+                task: preflight
+                options:
+                    task_name: deploy_post
+            10:
+                task: preflight
+                options:
+                    task_name: ordered_step
 
     static_preflight:
         description: A preflight flow that returns a static value. for Install prod...
