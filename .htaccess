@@ -1,0 +1,2 @@
+ErrorDocument 200 "ok"
+ErrorDocument 404 /index.html
