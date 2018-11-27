@@ -1,4 +1,8 @@
-ErrorDocument 200 /index.html
-ErrorDocument 404 /index.html
+#ErrorDocument 200 /index.html
+#ErrorDocument 404 /index.html
+#RewriteEngine on
+#RewriteRule ^ - [R=200]
 RewriteEngine on
-RewriteRule ^ - [R=200]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.html [NC,L,QSA]
