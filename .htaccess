@@ -1,4 +1,5 @@
 ErrorDocument 200 "ok"
 ErrorDocument 404 /index.html
 RewriteEngine on
-RewriteRule ^ index.html [R=200]
+#RewriteRule ^ index.html [R=200]
+RewriteRule ^$ /index.html [R=200]
