@@ -6,6 +6,7 @@ public with sharing class SampleClass {
     	for(Contact contact : contacts) {
     		if(String.isBlank(contact.FirstName)) {
     			contact.FirstName = 'Test';
+                // contact.LastName = 'Unexpected';
     			contactsToUpdate.add(contact);
     		}
     	}
