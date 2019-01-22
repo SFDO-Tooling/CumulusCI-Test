@@ -44,47 +44,47 @@ tasks:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 3
+            seconds: 3
     opportunity_record_types:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 3
+            seconds: 3
     contacts_and_organizations:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 7
+            seconds: 7
     households:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 7
+            seconds: 7
     recurring_donations:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 5
+            seconds: 5
     relationships:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 4
+            seconds: 4
     affiliations:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 3
+            seconds: 3
     npsp:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 10 
+            seconds: 10 
     outbound_funds:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            sleep: 5
+            seconds: 5
             
 
 flows:
