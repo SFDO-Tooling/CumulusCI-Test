@@ -40,6 +40,52 @@ tasks:
                 - record_type: Opportunity.NPSP_Default
                   default: true
 
+    account_record_types:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 3
+    opportunity_record_types:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 3
+    contacts_and_organizations:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 7
+    households:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 7
+    recurring_donations:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 5
+    relationships:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 4
+    affiliations:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 3
+    npsp:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 10 
+    outbound_funds:
+        description: Dummy task for UX testing
+        class_path: cumulusci.tasks.util.Sleep
+        options:
+            sleep: 5
+            
 
 flows:
     ci_test_concurrency:
@@ -244,92 +290,46 @@ flows:
         description: A flow to simulate installing a production version of NPSP for UX testing
         steps:
             1:
-                task: named_sleep
-                options:
-                    seconds: 3 
-                    task_name: account_record_types
+                task: account_record_types
             2:
-                task: named_sleep
-                options:
-                    seconds: 3 
-                    task_name: opportunity_record_types
+                task: opportunity_record_types
             3:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: contacts_and_organizations
+                task: contacts_and_organizations
             4:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: households
+                task: households
             5:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: recurring_donations
+                task: recurring_donations
             6:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: relationships
+                task: relationships
             7:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: affiliations
+                task: affiliations
             8:
-                task: named_sleep
-                options:
-                    seconds: 15 
-                    task_name: npsp
+                task: npsp
 
     test_npsp_install_error:
         description: A flow to simulate installing a production version of NPSP for UX testing
         steps:
             1:
-                task: named_sleep
-                options:
-                    seconds: 3 
-                    task_name: account_record_types
+                task: account_record_types
             2:
                 task: deploy
                 options:
                     path: does_not_exist
-                    task_name: opportunity_record_types
             3:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: contacts_and_organizations
+                task: contacts_and_organizations
             4:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: households
+                task: households
             5:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: recurring_donations
+                task: recurring_donations
             6:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: relationships
+                task: relationships
             7:
-                task: named_sleep
-                options:
-                    seconds: 5 
-                    task_name: affiliations
+                task: affiliations
             8:
-                task: named_sleep
-                options:
-                    seconds: 15 
-                    task_name: npsp
+                task: npsp
 
-    test_npsp_preflight_warn:
-        descriptions: A preflight flow that fails.
+    test_npsp_preflight:
+        descriptions: A preflight flow that passes.
         steps:
             1:
                 task: preflight
@@ -339,6 +339,42 @@ flows:
                 task: preflight
                 options:
                     task_name: opportunity_record_types
+            3:
+                task: preflight
+                options:
+                    task_name: contacts_and_organizations
+            4:
+                task: preflight
+                options:
+                    task_name: households
+            5:
+                task: preflight
+                options:
+                    task_name: recurring_donations
+            6:
+                task: preflight
+                options:
+                    task_name: relationships
+            7:
+                task: preflight
+                options:
+                    task_name: affiliations
+            8:
+                task: preflight
+                options:
+                    task_name: npsp
+
+    test_npsp_preflight_warn:
+        descriptions: A preflight flow for test_npsp_install_error that creates a warning.
+        steps:
+            1:
+                task: preflight
+                options:
+                    task_name: account_record_types
+            2:
+                task: preflight
+                options:
+                    task_name: deploy
                     status_code: warn
                     msg: The Opportunity Record Type and Business Process already exist in your org.  Are you sure you want to overwrite them?
             3:
@@ -370,9 +406,14 @@ flows:
         description: A flow to simulate installing a production version of NPSP for UX testing
         steps:
             1:
-                task: named_sleep
+                task: outbound_funds
+
+    test_outboundfunds_preflight:
+        description: A passing preflight for test_outboundfunds_install
+        steps:
+            1:
+                task: preflight
                 options:
-                    seconds: 10 
                     task_name: outbound_funds
 
     static_preflight:
