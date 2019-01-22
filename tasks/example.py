@@ -1,5 +1,5 @@
 from cumulusci.core.tasks import BaseTask
-from cumulusci.core.tasks.util import Sleep
+from cumulusci.tasks.util import Sleep
 
 
 class ExampleTask(BaseTask):
