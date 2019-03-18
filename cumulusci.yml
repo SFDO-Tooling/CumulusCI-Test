@@ -1,5 +1,5 @@
 project:
-    name: CumulusCI Test
+    name: CumulusCI-Test
     package:
         name: CumulusCI Test
         namespace: ccitest
