@@ -1,3 +1,8 @@
+robot/*/results/
+log.html
+output.xml
+report.html
+geckodriver.log
 *.pyc
 /browser_tests
 /test_results.xml
