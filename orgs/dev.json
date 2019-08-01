@@ -1,10 +1,10 @@
 {
   "edition": "Developer",
   "orgName": "CumulusCI-Test Dev Workspace", 
-  "orgPreferences": {
-    "enabled": [
-      "ChatterEnabled", 
-      "S1DesktopEnabled"
-    ]
+  "settings": {
+    "orgPreferenceSettings": {
+      "chatterEnabled": true,
+      "s1DesktopEnabled": true
+    }
   }
 }
