@@ -2,10 +2,10 @@
   "edition": "Developer", 
    "instance": "CS46",
   "orgName": "CumulusCI-Test Release Test Org", 
-  "orgPreferences": {
-    "enabled": [
-      "ChatterEnabled", 
-      "S1DesktopEnabled"
-    ]
+  "settings": {
+    "orgPreferenceSettings": {
+      "chatterEnabled": true,
+      "s1DesktopEnabled": true
+    }
   }
 }
