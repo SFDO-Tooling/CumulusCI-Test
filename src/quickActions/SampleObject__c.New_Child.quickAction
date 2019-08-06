@@ -20,4 +20,5 @@
     <targetObject>Child_Sample_Object__c</targetObject>
     <targetParentField>Parent__c</targetParentField>
     <type>Create</type>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
 </QuickAction>
