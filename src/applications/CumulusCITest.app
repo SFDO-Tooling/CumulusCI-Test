@@ -3,5 +3,5 @@
     <defaultLandingTab>SampleObject__c</defaultLandingTab>
     <description>Sample application for the CumulusCI-Test project.</description>
     <label>CumulusCI-Test</label>
-    <tab>SampleObject__c</tab>
+    <tabs>SampleObject__c</tabs>
 </CustomApplication>
