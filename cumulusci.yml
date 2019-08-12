@@ -3,7 +3,7 @@ project:
     package:
         name: CumulusCI Test
         namespace: ccitest
-        api_version: 33.0
+        api_version: 46.0
     git:
         repo_url: https://github.com/SalesforceFoundation/CumulusCI-Test
     dependencies:
