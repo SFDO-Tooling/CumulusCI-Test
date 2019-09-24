@@ -1,2 +1,3 @@
 test
 long-label-failure
+long-label-failure__child1
