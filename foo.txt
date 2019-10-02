@@ -1,2 +1,3 @@
 test c
 long-running1
+long-running1__child1
