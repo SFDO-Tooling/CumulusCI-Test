@@ -4,6 +4,15 @@ project:
         name: CumulusCI Test
         namespace: ccitest
         api_version: 46.0
+    packages:
+        feature:
+            name: CumulusCI Test Feature
+            version_name: CumulusCI Test Feature ({{ version }})
+            package_type: unlocked
+            path: src
+            source_format: mdapi
+            branch: $project_config.git_branch
+            tag: $project_config.git_commit
     git:
         repo_url: https://github.com/SalesforceFoundation/CumulusCI-Test
     dependencies:
@@ -14,6 +23,14 @@ project:
         repo_dir: ApexDocumentation
 
 tasks:
+    create_package_version:
+        description: Upload a 2GP package version
+        class_path: tasks.2gp.CreatePackageVersion
+
+    api_debug:
+        description: Drop into a pdb shell to interact with the Salesforce APIs
+        class_path: tasks.example.ApiDebug
+
     named_sleep:
         description: sleeps, and has a name
         class_path: tasks.example.StaticSleep
