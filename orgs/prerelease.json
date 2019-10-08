@@ -1,0 +1,11 @@
+{
+  "edition": "Developer",
+  "orgName": "CumulusCI-Test Dev Workspace", 
+  "instance": "cs46",
+  "settings": {
+    "orgPreferenceSettings": {
+      "chatterEnabled": true,
+      "s1DesktopEnabled": true
+    }
+  }
+}
