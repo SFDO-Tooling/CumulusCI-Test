@@ -4,23 +4,32 @@ project:
         name: CumulusCI Test
         namespace: ccitest
         api_version: 46.0
-    packages:
-        feature:
-            name: CumulusCI Test Feature
-            version_name: CumulusCI Test Feature ({{ version }})
-            package_type: unlocked
-            path: src
-            source_format: mdapi
-            branch: $project_config.git_branch
-            tag: $project_config.git_commit
     git:
         repo_url: https://github.com/SalesforceFoundation/CumulusCI-Test
     dependencies:
-        - namespace: pub
-          version: 1.5
+        - github: https://github.com/SalesforceFoundation/EDA
+        #- namespace: pub
+        #  version: 1.5
     apexdoc:
         branch: gh-pages
         repo_dir: ApexDocumentation
+
+packages:
+    feature:
+        name: CumulusCI Test Feature
+        version_name: CumulusCI Test Feature ({{ version }})
+        package_type: unlocked
+        path: src
+        source_format: mdapi
+        dependencies: project
+    trial_config:
+        name: CumulusCI Test Trial Config
+        version_name: CumulusCI Test Feature ({{ version }})
+        package_type: unlocked
+        path: unpackaged/config/trial
+        source_format: sfdx
+        dependencies: None
+
 
 tasks:
     create_package_version:
@@ -47,15 +56,15 @@ tasks:
         description: An example project-level task that does nothing
         class_path: tasks.example.ExampleTask
 
-    update_admin_profile:
-        options:
-            record_types:
-                - record_type: Account.HH_Account
-                - record_type: Account.Organization
-                  default: true
-                  person_account_default: true
-                - record_type: Opportunity.NPSP_Default
-                  default: true
+    #update_admin_profile:
+        #options:
+            #record_types:
+                #- record_type: Account.HH_Account
+                #- record_type: Account.Organization
+                  #default: true
+                  #person_account_default: true
+                #- record_type: Opportunity.NPSP_Default
+                  #default: true
 
     account_record_types:
         description: Dummy task for UX testing

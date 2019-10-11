@@ -2,6 +2,8 @@ public with sharing class SampleClass {
 
     /** Sample method that will populate a contact's first name if empty. **/
     public void fillInFirstName(List<Contact> contacts) {
+        Account acc = new Account();
+        Id acc_id = acc.RecordTypeId;
     	List<Contact> contactsToUpdate = new List<Contact>();
     	for(Contact contact : contacts) {
     		if(String.isBlank(contact.FirstName)) {

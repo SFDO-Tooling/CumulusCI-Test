@@ -1,10 +1,15 @@
 from cumulusci.core.tasks import BaseTask
+from cumulusci.tasks.salesforce import BaseSalesforceApiTask
 from cumulusci.tasks.util import Sleep
 
 
 class ExampleTask(BaseTask):
     def _run_task(self):
         self.logger.info("Called _run_task")
+
+class ApiDebug(BaseSalesforceApiTask):
+    def _run_task(self):
+        import pdb; pdb.set_trace()
 
 
 class StaticPreflightTask(BaseTask):
