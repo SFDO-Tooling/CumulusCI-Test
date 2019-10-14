@@ -33,6 +33,7 @@ class DependencyLookupError(CumulusCIFailure):
 class PackageUploadFailure(CumulusCIFailure):
     pass
 
+
 # FIXME: Move to cumulusci.utils
 @contextmanager
 def temporary_dir(chdir=True):
@@ -273,119 +274,155 @@ class CreatePackageVersion(Deploy, BaseSalesforceApiTask):
             for file_to_package in self._get_files_to_package():
                 package_zip.write(file_to_package)
 
-    def _get_dependencies(self):
-        dependencies = []
+    def _has_managed_project_dependency(self, project_dependencies):
+        for dependency in project_dependencies:
+            if "namespace" in dependency:
+                return True
+            if "dependencies" in dependency:
+                if self._has_managed_project_dependency(dependency["dependencies"]):
+                    return True
+        return False
 
-        project_dependencies = self.project_config.get_static_dependencies()
-        if project_dependencies:
-            org_created = False
-            if self.options.get("dependency_org"):
-                org_name = self.options["dependency_org"]
-                org = self.project_config.keychain.get_org(
-                    self.options["dependency_org"]
+    def _get_dependency_org(self):
+        if self.options.get("dependency_org"):
+            org_name = self.options["dependency_org"]
+            org = self.project_config.keychain.get_org(self.options["dependency_org"])
+        else:
+            org_name = "2gp_dependencies"
+            if org_name not in self.project_config.keychain.list_orgs():
+                self.project_config.keychain.create_scratch_org(
+                    "2gp_dependencies", "dev"
+                )
+
+            org = self.project_config.keychain.get_org("2gp_dependencies")
+            if org.created and org.expired:
+                self.logger.info(
+                    "Recreating expired scratch org named 2gp_dependencies to resolve package dependencies"
+                )
+                org.create_org()
+                self.project_config.keychain.set_org("2gp_dependencies", org)
+            if org.created:
+                self.logger.info(
+                    "Using existing scratch org named 2gp_dependencies to resolve dependencies"
                 )
             else:
-                org_name = "2gp_dependencies"
-                if org_name not in self.project_config.keychain.list_orgs():
-                    self.project_config.keychain.create_scratch_org(
-                        "2gp_dependencies", "dev"
-                    )
-                org = self.project_config.keychain.get_org("2gp_dependencies")
-                org_created = True
-                coordinator = FlowCoordinator(
-                    self.project_config, self.project_config.get_flow("dependencies")
+                self.logger.info(
+                    "A new scratch org with the name 2gp_dependencies will be created to resolve dependencies"
                 )
-                coordinator.run(org)
 
-            org_tooling = get_simple_salesforce_connection(
-                self.project_config, org, api_version="41.0"
+            self.logger.info(
+                "Running the dependencies flow against the 2gp_dependencies scratch org"
             )
-            org_tooling.base_url += "tooling/"
-
-            installed_versions = org_tooling.query(
-                "SELECT "
-                "SubscriberPackage.Id, "
-                "SubscriberPackage.Name, "
-                "SubscriberPackage.NamespacePrefix, "
-                "SubscriberPackageVersion.Id, "
-                "SubscriberPackageVersion.Name, "
-                "SubscriberPackageVersion.MajorVersion, "
-                "SubscriberPackageVersion.MinorVersion, "
-                "SubscriberPackageVersion.PatchVersion, "
-                "SubscriberPackageVersion.BuildNumber, "
-                "SubscriberPackageVersion.IsBeta, "
-                "SubscriberPackageVersion.IsManaged "
-                "FROM InstalledSubscriberPackage"
+            coordinator = FlowCoordinator(
+                self.project_config, self.project_config.get_flow("dependencies")
             )
+            coordinator.run(org)
 
-            if org_created:
-                org.delete_org()
-                self.project_config.keychain.remove_org(org_name)
+        return org
 
-            installed_dependencies = {}
-            if installed_versions["size"] > 0:
-                for installed in installed_versions["records"]:
-                    if installed["SubscriberPackage"]["NamespacePrefix"] is None:
-                        continue
-                    version_str = "{MajorVersion}.{MinorVersion}".format(
-                        **installed["SubscriberPackageVersion"]
-                    )
-                    if installed["SubscriberPackageVersion"]["PatchVersion"]:
-                        version_str += ".{PatchVersion}".format(
-                            installed["SubscriberPackageVersion"]
-                        )
-                    if installed["SubscriberPackageVersion"]["IsBeta"]:
-                        version_str += " (Beta {BuildNumber}".format(
-                            installed["SubscriberPackageVersion"]
-                        )
+    def _get_installed_dependencies(self, org):
+        org_tooling = get_simple_salesforce_connection(
+            self.project_config, org, api_version="41.0"
+        )
+        org_tooling.base_url += "tooling/"
 
-                    installed_dependencies[
-                        installed["SubscriberPackage"]["NamespacePrefix"]
-                        + "@"
-                        + version_str
-                    ] = {
-                        "package_id": installed["SubscriberPackage"]["Id"],
-                        "package_name": installed["SubscriberPackage"]["Name"],
-                        "version_id": installed["SubscriberPackageVersion"]["Id"],
-                        "version_name": installed["SubscriberPackageVersion"]["Name"],
-                    }
+        self.logger.info(
+            "Querying installed package version ids in org {}".format(org.name)
+        )
+        installed_versions = org_tooling.query(
+            "SELECT "
+            "SubscriberPackage.Id, "
+            "SubscriberPackage.Name, "
+            "SubscriberPackage.NamespacePrefix, "
+            "SubscriberPackageVersion.Id, "
+            "SubscriberPackageVersion.Name, "
+            "SubscriberPackageVersion.MajorVersion, "
+            "SubscriberPackageVersion.MinorVersion, "
+            "SubscriberPackageVersion.PatchVersion, "
+            "SubscriberPackageVersion.BuildNumber, "
+            "SubscriberPackageVersion.IsBeta, "
+            "SubscriberPackageVersion.IsManaged "
+            "FROM InstalledSubscriberPackage"
+        )
 
-            # FIXME: Needs to be refactored to handle recursive dependencies like npo02 depending on npe01
-            for dependency in project_dependencies:
-                if dependency.get("namespace"):
-                    version_info = installed_dependencies.get(
-                        "{namespace}@{version}".format(**dependency)
+        installed_dependencies = {}
+        if installed_versions["size"] > 0:
+            for installed in installed_versions["records"]:
+                if installed["SubscriberPackage"]["NamespacePrefix"] is None:
+                    continue
+                version_str = "{MajorVersion}.{MinorVersion}".format(
+                    **installed["SubscriberPackageVersion"]
+                )
+                if installed["SubscriberPackageVersion"]["PatchVersion"]:
+                    version_str += ".{PatchVersion}".format(
+                        installed["SubscriberPackageVersion"]
                     )
-                    if not version_info:
-                        raise DependencyLookupError(
-                            "Could not find installed dependency in org {}: {namespace}@{version}".format(
-                                org_name, **dependency
-                            )
-                        )
-                    self.logger.info(
-                        "Adding dependency {}@{} with id {}".format(
-                            dependency["namespace"],
-                            dependency["version"],
-                            version_info["version_id"],
-                        )
+                if installed["SubscriberPackageVersion"]["IsBeta"]:
+                    version_str += " (Beta {BuildNumber}".format(
+                        installed["SubscriberPackageVersion"]
                     )
-                    dependencies.append(
-                        {"subscriberPackageVersionId": version_info["version_id"]}
-                    )
-                if dependency.get("repo_name"):
-                    if dependency.get("subfolder", "").startswith("unpackaged/post"):
-                        continue
-                    version_id = self._create_package_from_github(dependency)
-                    self.logger.info(
-                        "Adding dependency {}/{} {} with id {}".format(
-                            dependency["repo_owner"],
-                            dependency["repo_name"],
-                            dependency["subfolder"],
-                            version_id,
-                        )
-                    )
-                    dependencies.append({"subscriberPackageVersionId": version_id})
 
+                installed_dependencies[
+                    installed["SubscriberPackage"]["NamespacePrefix"]
+                    + "@"
+                    + version_str
+                ] = {
+                    "package_id": installed["SubscriberPackage"]["Id"],
+                    "package_name": installed["SubscriberPackage"]["Name"],
+                    "version_id": installed["SubscriberPackageVersion"]["Id"],
+                    "version_name": installed["SubscriberPackageVersion"]["Name"],
+                }
+        return installed_dependencies
+
+    def _convert_project_dependencies(self, project_dependencies, installed_dependencies):
+        dependencies = []
+        for dependency in project_dependencies:
+            dependency_info = {}
+            if dependency.get("namespace"):
+                version_info = installed_dependencies.get(
+                    "{namespace}@{version}".format(**dependency)
+                )
+                if not version_info:
+                    raise DependencyLookupError(
+                        "Could not find installed dependency in org {}: {namespace}@{version}".format(
+                            org_name, **dependency
+                        )
+                    )
+                self.logger.info(
+                    "Adding dependency {}@{} with id {}".format(
+                        dependency["namespace"],
+                        dependency["version"],
+                        version_info["version_id"],
+                    )
+                )
+                dependency_info["subscriberPackageVersionId"] = version_info["version_id"]
+                
+            if dependency.get("repo_name"):
+                if dependency.get("subfolder", "").startswith("unpackaged/post"):
+                    continue
+                version_id = self._create_package_from_github(dependency)
+                self.logger.info(
+                    "Adding dependency {}/{} {} with id {}".format(
+                        dependency["repo_owner"],
+                        dependency["repo_name"],
+                        dependency["subfolder"],
+                        version_id,
+                    )
+                )
+                dependency_info["subscriberPackageVersionId"] = version_id
+
+            if dependency.get("dependencies"):
+                dependencies.extend(
+                    self._convert_project_dependencies(
+                        dependency["dependencies"], installed_dependencies
+                    )
+                )
+                
+            dependencies.append(dependency_info)
+
+        return dependencies
+
+    def _get_unpackaged_pre_dependencies(self, dependencies):
         path = "unpackaged/pre"
         for item in sorted(os.listdir(path)):
             item_path = os.path.join(path, item)
@@ -397,11 +434,26 @@ class CreatePackageVersion(Deploy, BaseSalesforceApiTask):
                     self.project_config.repo_owner,
                     self.project_config.repo_name,
                     item_path,
-                    version_info["version_id"],
+                    version_id,
                 )
             )
             dependencies.append({"subscriberPackageVersionId": version_id})
 
+        return dependencies
+
+    def _get_dependencies(self):
+        dependencies = []
+
+        project_dependencies = self.project_config.get_static_dependencies()
+
+        lookup_version_ids = self._has_managed_project_dependency(project_dependencies)
+
+        if project_dependencies and lookup_version_ids:
+            org = self._get_dependency_org()
+            installed_dependencies = self._get_installed_dependencies(org)
+            dependencies.extend(self._convert_project_dependencies(project_dependencies, installed_dependencies))
+
+        dependencies = self._get_unpackaged_pre_dependencies(dependencies)
         return dependencies
 
     def _create_package_from_github(self, dependency):
