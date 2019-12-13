@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>CumulusCI-Test</fullName>
+    <fullName>CumulusCI Test</fullName>
     <types>
         <members>SampleClass</members>
         <members>SampleClass_TEST</members>
@@ -63,5 +63,5 @@
         <members>SampleObject__c.Just_Testing</members>
         <name>WebLink</name>
     </types>
-    <version>31.0</version>
+    <version>47.0</version>
 </Package>
