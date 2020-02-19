@@ -78,5 +78,5 @@
         <members>SampleObject__c.Just_Testing</members>
         <name>WebLink</name>
     </types>
-    <version>46.0</version>
+    <version>47.0</version>
 </Package>
