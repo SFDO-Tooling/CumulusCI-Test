@@ -1,10 +1,10 @@
 {
   "packageDirectories": [
     {
-      "path": "src",
+      "path": "force-app",
       "default": true
     }
   ],
-  "namespace": "",
-  "sourceApiVersion": "47.0"
+  "namespace": "ccitest",
+  "sourceApiVersion": "48.0"
 }

@@ -1,3 +1,6 @@
+.cci
+.sfdx
+.vscode
 *.pyc
 /browser_tests
 /test_results.xml
