@@ -3,9 +3,10 @@ project:
     package:
         name: CumulusCI Test
         namespace: ccitest
-        api_version: 47.0
+        api_version: 48.0
     git:
         repo_url: https://github.com/SalesforceFoundation/CumulusCI-Test
+    source_format: sfdx
     dependencies:
         - namespace: pub
           version: 1.5

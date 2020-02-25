@@ -153,19 +153,6 @@
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <fields>
-        <fullName>Parent__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <deprecated>false</deprecated>
-        <externalId>false</externalId>
-        <label>Parent</label>
-        <referenceTo>SampleObject__c</referenceTo>
-        <relationshipLabel>Children Sample Objects</relationshipLabel>
-        <relationshipName>Children_Sample_Objects</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
     <label>Child Sample Object</label>
     <nameField>
         <label>Child Sample Object Name</label>
