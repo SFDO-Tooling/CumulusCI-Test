@@ -1,0 +1,31 @@
+name: Apex Tests
+
+on:
+  push:
+    branches:
+    - feature/**
+    - master
+
+jobs:
+  unit_tests:
+    name: "Run Apex tests"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install sfdx
+      run: |
+        mkdir sfdx
+        wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJ -C sfdx --strip-components 1
+        ./sfdx/install
+        echo ${{ secrets.SFDX_AUTH_URL }} > sfdx_auth
+        sfdx force:auth:sfdxurl:store -f sfdx_auth -d
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.8"
+    - name: Install CumulusCI
+      run: |
+        python -m pip install -U pip
+        pip install cumulusci
+    - run: |
+        cci flow run ci_feature --org dev --delete-org
