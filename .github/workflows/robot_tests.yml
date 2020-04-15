@@ -6,6 +6,10 @@ on:
     - feature/**
     - master
 
+env:
+  CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
+  CUMULUSCI_SERVICE_github: ${{ secrets.CUMULUSCI_SERVICE_github }}
+
 jobs:
   unit_tests:
     name: "Run Robot Framework tests"
