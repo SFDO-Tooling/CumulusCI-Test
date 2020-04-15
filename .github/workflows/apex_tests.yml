@@ -6,6 +6,9 @@ on:
     - feature/**
     - master
 
+env:
+  CUMULUSCI_KEY: ${{ secrets.CUMULUSCI_KEY }}
+
 jobs:
   unit_tests:
     name: "Run Apex tests"
