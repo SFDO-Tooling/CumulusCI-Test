@@ -8,6 +8,7 @@ on:
 
 env:
   CUMULUSCI_KEY: ${{ secrets.CUMULUSCI_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   unit_tests:
