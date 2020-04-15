@@ -7,8 +7,8 @@ on:
     - master
 
 env:
-  CUMULUSCI_KEY: ${{ secrets.CUMULUSCI_KEY }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
+  CUMULUSCI_SERVICE_github: ${{ secrets.CUMULUSCI_SERVICE_github }}
 
 jobs:
   unit_tests:
