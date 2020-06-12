@@ -5,6 +5,7 @@ project:
         namespace: ccitest
         api_version: 48.0
     git:
+        default_branch: main
         repo_url: https://github.com/SalesforceFoundation/CumulusCI-Test
     source_format: sfdx
     dependencies:
