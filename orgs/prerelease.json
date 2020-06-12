@@ -1,0 +1,13 @@
+{
+  "edition": "Developer",
+  "orgName": "CumulusCI-Test Dev Workspace",
+  "instance": "cs46",
+  "settings": {
+    "chatterSettings": {
+      "enableChatter": true
+    },
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    }
+  }
+}

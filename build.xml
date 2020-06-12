@@ -1,0 +1,13 @@
+<project name="CumulusCI-Test" default="deploy" basedir="." xmlns:sf="antlib:com.salesforce">
+    <!-- Load the package requirements from version.properties -->
+    <loadproperties srcFile="${basedir}/version.properties"/>
+
+    <!-- Load environment variables -->
+    <property environment="env" />
+
+    <!-- Load CumulusCI build targets -->
+    <import file="${env.CUMULUSCI_PATH}/build/build.xml" />
+
+    <!-- Add project specific build targets and CumulusCI overrides here -->
+
+</project>

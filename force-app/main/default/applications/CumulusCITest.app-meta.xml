@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>SampleObject__c</defaultLandingTab>
+    <description>Sample application for the CumulusCI-Test project.</description>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>CumulusCI-Test</label>
+    <tabs>SampleObject__c</tabs>
+</CustomApplication>
