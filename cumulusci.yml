@@ -16,6 +16,9 @@ project:
         repo_dir: ApexDocumentation
 
 tasks:
+    github_automerge_feature:
+        options:
+            update_future_releases: true
     named_sleep:
         description: sleeps, and has a name
         class_path: tasks.example.StaticSleep
