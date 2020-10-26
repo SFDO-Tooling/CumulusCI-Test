@@ -18,7 +18,7 @@ project:
 tasks:
     github_automerge_feature:
         options:
-            update_future_releases: true
+            update_future_releases: false
     named_sleep:
         description: sleeps, and has a name
         class_path: tasks.example.StaticSleep
