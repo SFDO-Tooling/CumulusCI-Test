@@ -51,6 +51,7 @@ Validate Contact
     # Validate via UI
     Go to page             Detail   Contact  ${contact_id}
     Page Should Contain    ${first_name} ${last_name}
+    Capture Page Screenshot
 
     # Validate via API
     &{contact} =     Salesforce Get  Contact  ${contact_id}
