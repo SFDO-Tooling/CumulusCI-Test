@@ -101,6 +101,13 @@ flows:
                 options:
                     seconds: 60
 
+    push_sandbox:
+    steps:
+        1:
+            task: push_sandbox
+            options:
+                version: 1.71
+
     slow_steps_flow:
         description: A flow that slowly goes step by step.
         steps:
