@@ -1,13 +1,14 @@
-
+#ECCN: Open Source
+#GUSINFO: SFDO Release Engineering, SFDO RelEng - CumulusCI Core
 # Python
-*.py                  @SalesforceFoundation/release-engineering-reviewers
+*.py                  @SFDO-Tooling/salesforce-org-release-engineering
 
 # CumulusCI
-/cumulusci.yml        @SalesforceFoundation/release-engineering-reviewers
-/tasks/               @SalesforceFoundation/release-engineering-reviewers
+/cumulusci.yml        @SFDO-Tooling/salesforce-org-release-engineering
+/tasks/               @SFDO-Tooling/salesforce-org-release-engineering
 
 # Heroku CI
-/Gemfile.lock         @SalesforceFoundation/release-engineering-reviewers
-/app.json             @SalesforceFoundation/release-engineering-reviewers
-/requirements.txt     @SalesforceFoundation/release-engineering-reviewers
-/runtime.txt          @SalesforceFoundation/release-engineering-reviewers
+/Gemfile.lock         @SFDO-Tooling/salesforce-org-release-engineering
+/app.json             @SFDO-Tooling/salesforce-org-release-engineering
+/requirements.txt     @SFDO-Tooling/salesforce-org-release-engineering
+/runtime.txt          @SFDO-Tooling/salesforce-org-release-engineering
