@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Add comment
         id: codeowners-comment
-        if: github.event.requested_team.name == '@SFDO-Tooling/salesforce-org-release-engineering'
+        if: github.event.requested_team.node_id == '@SFDO-Tooling/salesforce-org-release-engineering'
         uses: SFDO-Tooling/github-script@v4
         with:
           script: |
