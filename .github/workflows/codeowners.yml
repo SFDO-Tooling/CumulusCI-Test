@@ -1,0 +1,24 @@
+name: CODEOWNERS workflow
+on:
+  pull_request:
+    types:
+      - labeled
+      - review_requested
+
+jobs:
+  workflow_comment:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'review_requested'
+    steps:
+      - name: Add comment
+        id: codeowners-comment
+        if: github.event.requested_team.name == '@SFDO-Tooling/salesforce-org-release-engineering'
+        uses: SFDO-Tooling/github-script@v4
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Hello World!'
+            })
