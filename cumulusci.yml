@@ -10,9 +10,6 @@ project:
     dependencies:
         - namespace: pub
           version: 1.5
-    apexdoc:
-        branch: gh-pages
-        repo_dir: ApexDocumentation
 
 tasks:
     named_sleep:
@@ -330,7 +327,7 @@ flows:
                 task: npsp
 
     test_npsp_preflight:
-        descriptions: A preflight flow that passes.
+        description: A preflight flow that passes.
         steps:
             1:
                 task: preflight
@@ -366,7 +363,7 @@ flows:
                     task_name: npsp
 
     test_npsp_preflight_warn:
-        descriptions: A preflight flow for test_npsp_install_error that creates a warning.
+        description: A preflight flow for test_npsp_install_error that creates a warning.
         steps:
             1:
                 task: preflight
@@ -442,7 +439,7 @@ flows:
                     task_name: update_admin_profile
 
     failing_preflight:
-        descriptions: A preflight flow that fails.
+        description: A preflight flow that fails.
         steps:
             1:
                 task: preflight
@@ -468,7 +465,7 @@ flows:
                     task_name: update_admin_profile
 
     messy_preflight:
-        descriptions: A preflight flow that has all kinds of issues.
+        description: A preflight flow that has all kinds of issues.
         steps:
             1:
                 task: preflight
@@ -498,7 +495,7 @@ flows:
                     status_code: skip
 
     warn_preflight:
-        descriptions: A preflight flow that has warnings.
+        description: A preflight flow that has warnings.
         steps:
             1:
                 task: preflight
@@ -518,7 +515,7 @@ flows:
                     msg: This warning is a <a href="https://www.salesforce.org/">good</a> example.
 
     error_preflight:
-        descriptions: A preflight flow that has a top-level error.
+        description: A preflight flow that has a top-level error.
         steps:
             1:
                 task: preflight_error
