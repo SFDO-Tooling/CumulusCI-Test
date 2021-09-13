@@ -1,7 +1,7 @@
 {
   "edition": "Developer",
   "orgName": "CumulusCI-Test Dev Workspace",
-  "instance": "cs46",
+  "release": "Preview",
   "settings": {
     "chatterSettings": {
       "enableChatter": true
