@@ -15,7 +15,7 @@ class StaticPreflightTask(BaseTask):
             "required": True,
         },
         "status_code": {
-            "description": 'Status code to return, default to "ok".',
+            "description": 'Status code to return, defaults to "ok"',
             "required": False,
         },
         "msg": {"description": "Message to be included", "required": False},
