@@ -536,5 +536,5 @@ plans:
           - devhub
         steps:
             1:
-                flow: dev_org
+              task: check_chatter_enabled
 
