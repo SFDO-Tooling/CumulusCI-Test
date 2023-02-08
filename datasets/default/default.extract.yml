@@ -1,0 +1,61 @@
+extract:
+  Account:
+    fields:
+    - Description
+    - Fax
+    - Name
+    - AccountNumber
+    - Phone
+    - Rating
+    - Site
+    - AccountSource
+    - Type
+    - AnnualRevenue
+    - BillingCity
+    - BillingCountry
+    - BillingGeocodeAccuracy
+    - BillingLatitude
+    - BillingLongitude
+    - BillingState
+    - BillingStreet
+    - BillingPostalCode
+    - CleanStatus
+    - DandbCompanyId
+    - DunsNumber
+    - Jigsaw
+    - NumberOfEmployees
+    - Industry
+    - NaicsCode
+    - NaicsDesc
+    - OperatingHoursId
+    - Ownership
+    - ParentId
+    - RecordTypeId
+    - ShippingCity
+    - ShippingCountry
+    - ShippingGeocodeAccuracy
+    - ShippingLatitude
+    - ShippingLongitude
+    - ShippingState
+    - ShippingStreet
+    - ShippingPostalCode
+    - Sic
+    - SicDesc
+    - TickerSymbol
+    - Tradestyle
+    - Website
+    - YearStarted
+  DandBCompany:
+    fields:
+    - DunsNumber
+    - Name
+  OperatingHours:
+    fields:
+    - Name
+    - TimeZone
+  RecordType:
+    fields:
+    - Description
+    - DeveloperName
+    - Name
+    - SobjectType
