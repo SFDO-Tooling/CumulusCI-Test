@@ -50,4 +50,4 @@ class FindReplaceUsername(FindReplace):
         # Run the _init_options logic from FindReplace
         super()._init_options(kwargs)
         # Set the replace option to the org's username
-        self.options["replace"] = self.org_config.username
+        self.parsed_options["replace"] = self.org_config.username
