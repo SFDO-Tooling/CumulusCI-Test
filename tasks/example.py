@@ -1,4 +1,5 @@
 from cumulusci.core.tasks import BaseTask
+from cumulusci.tasks.util import FindReplace
 from cumulusci.tasks.util import Sleep
 
 
@@ -8,7 +9,6 @@ class ExampleTask(BaseTask):
 
 
 class StaticPreflightTask(BaseTask):
-
     task_options = {
         "task_name": {
             "description": "Task that this preflight is for",
@@ -28,13 +28,26 @@ class StaticPreflightTask(BaseTask):
 
 
 class StaticSleep(Sleep):
-    task_options = dict(**Sleep.task_options, **{
-        "task_name": {
-            "description": "Task that this preflight is for",
-            "required": True,
-        },
-    })
+    task_options = dict(
+        **Sleep.task_options,
+        **{
+            "task_name": {
+                "description": "Task that this preflight is for",
+                "required": True,
+            },
+        }
+    )
 
     def _run_task(self):
         super()._run_task()
         self.return_values["task_name"] = self.options.get("task_name")
+
+
+class FindReplaceUsername(FindReplace):
+    salesforce_task = True  # Require a target org
+
+    def _init_options(self, kwargs):
+        # Run the _init_options logic from FindReplace
+        super()._init_options(kwargs)
+        # Set the replace option to the org's username
+        self.options["replace"] = self.org_config.username

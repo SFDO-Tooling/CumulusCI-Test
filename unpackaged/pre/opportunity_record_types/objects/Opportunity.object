@@ -46,7 +46,7 @@
     </businessProcesses>
 
     <recordTypes>
-        <fullName>NPSP_Default</fullName>
+        <fullName>%%%USERNAME%%%</fullName>
         <active>true</active>
         <businessProcess>NPSP_Default</businessProcess>
         <label>NPSP Default</label>

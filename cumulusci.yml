@@ -87,7 +87,12 @@ tasks:
         class_path: cumulusci.tasks.util.Sleep
         options:
             seconds: 5
-            
+    find_replace_username:
+        description: Replaces a string with the target org's username
+        class_path: tasks.example.FindReplaceUsername
+        options:
+            find: "%%%USERNAME%%%"
+            path: unpackaged/pre/opportunity_record_types/objects
 
 flows:
     ci_test_concurrency:
