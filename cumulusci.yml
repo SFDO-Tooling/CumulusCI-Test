@@ -526,3 +526,15 @@ flows:
                 options:
                     task_name: not_implemented
 
+plans:
+    install:
+        slug: install
+        title: Install Test Plan
+        tier: primary
+        is_listed: True
+        allowed_org_providers:
+          - devhub
+        steps:
+            1:
+              task: check_chatter_enabled
+
