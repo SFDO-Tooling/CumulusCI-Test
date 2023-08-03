@@ -1,5 +1,7 @@
 #ECCN: Open Source
 #GUSINFO: SFDO Release Engineering, SFDO RelEng - CumulusCI Core
+*
+
 # Python
 *.py                  @SFDO-Tooling/salesforce-org-release-engineering
 
