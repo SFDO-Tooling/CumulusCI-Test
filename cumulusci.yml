@@ -607,6 +607,9 @@ plans:
         tier: primary
         slug: install
         title: Install
+        allowed_org_providers:
+            - devhub
+            - user
         description: This is a test installation plan. Do not run this plan on a real Salesforce org.
         steps:
             1:
