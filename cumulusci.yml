@@ -81,13 +81,28 @@ tasks:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
-            seconds: 10 
+            seconds: 10
     outbound_funds:
         description: Dummy task for UX testing
         class_path: cumulusci.tasks.util.Sleep
         options:
             seconds: 5
-            
+    install_vbt:
+        description: Install VBT Package (for migrating OmniStudio components)
+        class_path: cumulusci.tasks.salesforce.InstallPackageVersion
+        group: OmniStudio
+        options:
+            namespace: vbtapp
+            version: "1.3"
+            name: VBT App
+    install_omnistudio:
+        description: Install OmniStudio
+        class_path: cumulusci.tasks.salesforce.InstallPackageVersion
+        group: OmniStudio
+        options:
+            namespace: omnistudio
+            version: "234.4"
+            name: OmniStudio
 
 flows:
     ci_test_concurrency:
@@ -526,3 +541,73 @@ flows:
                 options:
                     task_name: not_implemented
 
+    test_metadeploy:
+        description: A flow that tests happy-path MetaDeploy capabilities
+        steps:
+            1:
+                task: install_omnistudio
+            2:
+                task: install_vbt
+            3:
+                task: deploy
+                options:
+                    path: force-app
+            4:
+                # Validate we can shell to sfdx
+                task: dx_convert_from
+            5:
+                # Validate we can run a VBT task
+                task: vlocity_pack_export
+                options:
+                    job_file: jobfile.yaml
+            # Wait steps so we can make this plan take time if we need to test concurrency or safe restarts.
+            6:
+                task: util_sleep
+                options:
+                    seconds: 300
+                ui_options:
+                    is_required: false
+                    is_recommended: false
+            7:
+                task: util_sleep
+                options:
+                    seconds: 300
+                ui_options:
+                    is_required: false
+                    is_recommended: false
+            8:
+                task: util_sleep
+                options:
+                    seconds: 300
+                ui_options:
+                    is_required: false
+                    is_recommended: false
+            9:
+                task: util_sleep
+                options:
+                    seconds: 300
+                ui_options:
+                    is_required: false
+                    is_recommended: false
+            10:
+                task: util_sleep
+                options:
+                    seconds: 300
+                ui_options:
+                    is_required: false
+                    is_recommended: false
+
+orgs:
+    scratch:
+        e2e:
+            config_file: orgs/e2e.json
+
+plans:
+    install:
+        tier: primary
+        slug: install
+        title: Install
+        description: This is a test installation plan. Do not run this plan on a real Salesforce org.
+        steps:
+            1:
+                flow: test_metadeploy
