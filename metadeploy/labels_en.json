@@ -1,0 +1,60 @@
+{
+    "product": {
+        "title": {
+            "message": "CumulusCI-Test",
+            "description": "name of product"
+        }
+    },
+    "plan:install": {
+        "title": {
+            "message": "Install Test Plan",
+            "description": "title of installation plan"
+        }
+    },
+    "steps": {
+        "Install {product} {version}": {
+            "message": "Install {product} {version}",
+            "description": "title of installation step"
+        },
+        "Deploy unpackaged/pre/account_record_types": {
+            "message": "Deploy unpackaged/pre/account_record_types",
+            "description": "title of installation step"
+        },
+        "Deploy unpackaged/pre/opportunity_record_types": {
+            "message": "Deploy unpackaged/pre/opportunity_record_types",
+            "description": "title of installation step"
+        },
+        "dx_convert_from": {
+            "message": "dx_convert_from",
+            "description": "title of installation step"
+        },
+        "unschedule_apex": {
+            "message": "unschedule_apex",
+            "description": "title of installation step"
+        },
+        "update_package_xml": {
+            "message": "update_package_xml",
+            "description": "title of installation step"
+        },
+        "deploy": {
+            "message": "deploy",
+            "description": "title of installation step"
+        },
+        "uninstall_packaged_incremental": {
+            "message": "uninstall_packaged_incremental",
+            "description": "title of installation step"
+        },
+        "Deploy unpackaged/post/salesforce1": {
+            "message": "Deploy unpackaged/post/salesforce1",
+            "description": "title of installation step"
+        },
+        "Update Admin Profile": {
+            "message": "Update Admin Profile",
+            "description": "title of installation step"
+        },
+        "check_chatter_enabled": {
+            "message": "check_chatter_enabled",
+            "description": "title of installation step"
+        }
+    }
+}
