@@ -1,0 +1,16 @@
+{
+  "edition": "Developer",
+  "orgName": "CumulusCI-Test Dev Workspace",
+  "features": [
+    "OmniStudioDesigner",
+    "OmniStudioRuntime"
+  ],
+  "settings": {
+    "chatterSettings": {
+      "enableChatter": true
+    },
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    }
+  }
+}
