@@ -5,3 +5,5 @@
 /browser_tests
 /test_results.xml
 .DS_Store
+src
+vlocity-temp
